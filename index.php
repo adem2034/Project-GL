@@ -175,7 +175,7 @@ include 'constants/check-login.php';
 
 		<div class="main-wrapper">
 		
-			<div class="hero" style="background-image:url('images/hero-header/01.jpg');">
+			<div class="hero" style="background-image:url('images/hero-header/34.jpg');">
 				<div class="container">
 
 					<h1>Trouver votre  stages en entreprise sur stages.com</h1>
