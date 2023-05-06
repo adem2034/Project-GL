@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en">
 <?php 
-require '../constants/settings.php'; 
-require 'constants/check-login.php';
+include '../constants/settings.php'; 
+include 'constants/check-login.php';
 
 if ($user_online == "true") {
-if ($myrole == "employee") {
+if ($myrole == "employer") {
 }else{
 header("location:../");		
 }
@@ -53,15 +53,7 @@ header("location:../");
 	<link href="../css/style.css" rel="stylesheet">
 	
 </head>
-  <style>
-  
-    .autofit2 {
-	height:80px;
-	width:100px;
-    object-fit:cover; 
-  }
-  
-  </style>
+
 
 <body class="not-transparent-header">
 
@@ -90,7 +82,7 @@ header("location:../");
 							</li>
 							
 							<li>
-								<a href="../job-list.php"> liste stages</a>
+								<a href="../job-list.php">liste stages</a>
 
 							</li>
 							
@@ -133,7 +125,7 @@ header("location:../");
 				<div class="container">
 				
 					<ol class="breadcrumb-list booking-step">
-						<li><a href="../">Bwire Jobs</a></li>
+						<li><a href="../">Nightingale Jobs</a></li>
 						<li><span>Profile</span></li>
 					</ol>
 					
@@ -154,28 +146,26 @@ header("location:../");
 							
 								<div class="admin-sidebar">
 										
-									<div class="admin-user-item">
-									<div class="image">	
-									
+										
+									<div class="admin-user-item for-employer">
+										
+										<div class="image">
 										<?php 
-										if ($myavatar == null) {
-										print '<center><img class="img-circle autofit2" src="../images/default.jpg" title="'.$myfname.'" alt="image"  /></center>';
+										if ($logo == null) {
+										print '<center>Company Logo Here</center>';
 										}else{
-										echo '<center><img class="img-circle autofit2" alt="image" title="'.$myfname.'"  src="data:image/jpeg;base64,'.base64_encode($myavatar).'"/></center>';	
+										echo '<center><img alt="image" title="'.$compname.'" width="180" height="100" src="data:image/jpeg;base64,'.base64_encode($logo).'"/></center>';	
 										}
-										?>
+										?><br>
 										</div>
-										<br>
 										
-										
-										<h4><?php echo "$myfname"; ?> <?php echo "$mylname"; ?></h4>
-										<p class="user-role"><?php echo "$mytitle"; ?></p>
+										<h4><?php echo "$compname"; ?></h4>
 										
 									</div>
 									
 									<div class="admin-user-action text-center">
 									
-										<a target="_blank" href="my_cv" class="btn btn-primary btn-sm btn-inverse">View my CV</a>
+										<a href="post-job.php" class="btn btn-primary btn-sm btn-inverse">Post a Job</a>
 										
 									</div>
 									
@@ -186,30 +176,12 @@ header("location:../");
 										<li class="">
 										<a href="change-password.php"><i class="fa fa-key"></i> Change Password</a>
 										</li>
+			
 										<li>
-											<a href="qualifications.php"><i class="fa fa-trophy"></i> Professional Qualifications</a>
+											<a href="../company.php?ref=<?php echo "$myid"; ?>"><i class="fa fa-briefcase"></i> Company Overview</a>
 										</li>
 										<li>
-											<a href="language.php"><i class="fa fa-language"></i> Language Proficiency</a>
-										</li>
-										<li>
-											<a href="training.php"><i class="fa fa-gears"></i> Training & Workshop</a>
-										</li>
-
-										<li>
-											<a href="referees.php"><i class="fa fa-users"></i> Referees</a>
-										</li>
-										<li>
-											<a href="academic.php"><i class="fa fa-graduation-cap"></i> Academic Qualifications</a>
-										</li>
-										<li>
-											<a href="experience.php"><i class="fa fa-briefcase"></i> Working Experience</a>
-										</li>
-										<li>
-											<a href="attachments.php"><i class="fa fa-folder-open"></i> Other Attachments</a>
-										</li>
-										<li>
-											<a href="applied-jobs.php"><i class="fa fa-bookmark"></i> Applied Jobs</a>
+											<a href="my-jobs.php"><i class="fa fa-bookmark"></i> Posted Jobs</a>
 										</li>
 										<li>
 											<a href="../logout.php"><i class="fa fa-sign-out"></i> Logout</a>
@@ -234,15 +206,24 @@ header("location:../");
 									<form class="post-form-wrapper" action="app/update-profile.php" method="POST" autocomplete="off">
 								
 											<div class="row gap-20">
-											<?php require 'constants/check_reply.php'; ?>
-
+												<?php include 'constants/check_reply.php'; ?>
+												<div class="clear"></div>
+												
+												<div class="col-sm-12 col-md-8">
+												
+													<div class="form-group">
+														<label>Company Name</label>
+														<input name="company" placeholder="Enter company name" type="text" class="form-control" value="<?php echo "$compname"; ?>" required>
+													</div>
+													
+												</div>
 												<div class="clear"></div>
 												
 												<div class="col-sm-6 col-md-4">
 												
 													<div class="form-group">
-														<label>First Name</label>
-														<input name="fname" required type="text" class="form-control" value="<?php echo "$myfname"; ?>" placeholder="Enter your first name">
+														<label>Established In</label>
+                                                    <input name="year" placeholder="Enter year eg: 2016, 2017, 2018" type="text" class="form-control" value="<?php echo "$esta"; ?>" required>
 													</div>
 													
 												</div>
@@ -250,80 +231,8 @@ header("location:../");
 												<div class="col-sm-6 col-md-4">
 												
 													<div class="form-group">
-														<label>Last Name</label>
-														<input name="lname" required type="text" class="form-control" value="<?php echo "$mylname"; ?>" placeholder="Enter your last name">
-													</div>
-													
-												</div>
-												
-												<div class="clear"></div>
-												
-												<div class="col-sm-6 col-md-4">
-												
-													<div class="form-group">
-														<label>Born</label>
-														<div class="row gap-5">
-															<div class="col-xs-3 col-sm-3">
-																<select name="date" required class="selectpicker form-control" data-live-search="false">
-																	<option disabled value="">day</option>
-                                                                     <?php 
-                                                                      $x = 1; 
-
-                                                                      while($x <= 31) {
-                                         
-												                      if ($x < 10) {
-														              $x = "0$x";
-													                  print '<option '; if ($mydate == $x ) { print ' selected '; } print ' value="'.$x.'">'.$x.'</option>';
-													                  }else{
-													                  print '<option '; if ($mydate == $x ) { print ' selected '; } print ' value="'.$x.'">'.$x.'</option>';
-													                  }
-                                                                      $x++;
-                                                                       } 
-                                                                     ?>
-																</select>
-															</div>
-															<div class="col-xs-5 col-sm-5">
-																<select name="month" required class="selectpicker form-control" data-live-search="false">
-                                                                     <?php 
-                                                                      $x = 1; 
-
-                                                                      while($x <= 12) {
-                                         
-												                      if ($x < 10) {
-														              $x = "0$x";
-													                  print '<option '; if ($mymonth == $x ) { print ' selected '; } print ' value="'.$x.'">'.$x.'</option>';
-													                  }else{
-													                  print '<option '; if ($mymonth == $x ) { print ' selected '; } print ' value="'.$x.'">'.$x.'</option>';
-													                  }
-                                                                      $x++;
-                                                                       } 
-                                                                     ?>
-																</select>
-															</div>
-															<div class="col-xs-4 col-sm-4">
-																<select name="year" class="selectpicker form-control" data-live-search="false">
-													            <?php 
-                                                                 $x = date('Y'); 
-                                                                 $yr = 60;
-													             $y2 = $x - $yr;
-                                                                 while($x > $y2) {
-                                         
-													             print '<option '; if ($myyear == $x ) { print ' selected '; } print ' value="'.$x.'">'.$x.'</option>';
-                                                                 $x = $x - 1;
-                                                                  } 
-                                                                  ?>
-																</select>
-															</div>
-														</div>
-													</div>
-													
-												</div>
-												
-												<div class="col-sm-6 col-md-4">
-												
-													<div class="form-group">
-														<label>Email</label>
-														<input type="email" name="email" required class="form-control" value="<?php echo "$myemail"; ?>" placeholder="Enter your email address">
+														<label>Type</label>
+                                                    <input class="form-control" placeholder="Eg: Booking, Travel" name="type" required type="text" value="<?php echo "$mytitle"; ?>" required> 
 													</div>
 													
 												</div>
@@ -331,17 +240,21 @@ header("location:../");
 												<div class="clear"></div>
 
 												<div class="form-group">
-												
-													<div class="col-sm-12">
-														<label>Education Level</label>
-													</div>
 													
 													<div class="col-sm-6 col-md-4">
-                                                    <input value="<?php echo "$myedu"; ?>" name="education" type="text" required class="form-control" placeholder="Eg: Diploma, Degree...etc">
+														<label>People</label>
+														<select name="people" required class="selectpicker show-tick form-control mb-15" data-live-search="false">
+															<option <?php if ($mypeople == "1-10") { print ' selected '; } ?> value="1-10">1-10</option>
+															<option <?php if ($mypeople == "11-100") { print ' selected '; } ?> value="11-100">11-100</option>
+															<option <?php if ($mypeople == "200+") { print ' selected '; } ?> value="200+" >200+</option>
+															<option <?php if ($mypeople == "300+") { print ' selected '; } ?> value="300+">300+</option>
+															<option <?php if ($mypeople == "1000+") { print ' selected '; } ?>value="1000+">1000+ </option>
+														</select>
 													</div>
-													
+
 													<div class="col-sm-6 col-md-4">
-														<input value="<?php echo "$mytitle"; ?>" name="title" required type="text" class="form-control mb-15" placeholder="Eg: Computer Science, IT...etc">
+														<label>Website</label>
+														<input type="text" class="form-control" value="<?php echo "$myweb"; ?>" name="web" placeholder="Enter your website">
 													</div>
 														
 												</div>
@@ -351,48 +264,31 @@ header("location:../");
 												<div class="col-sm-6 col-md-4">
 												
 													<div class="form-group">
-														<label>Gender</label>
-														<select name="gender" required class="selectpicker show-tick form-control" data-live-search="false">
-															<option disabled value="">Select</option>
-															<option <?php if ($mygender == "Male") { print ' selected '; } ?> value="Male">Male</option>
-															<option <?php if ($mygender == "Female") { print ' selected '; } ?>value="Female">Female</option>
-														</select>
-													</div>
-													
-												</div>
-												
-												<div class="col-sm-6 col-md-4">
-												
-													<div class="form-group">
 														<label>City/town</label>
-														<input name="city" required type="text" class="form-control" value="<?php echo "$mycity"; ?>">
+														<input name="city" required type="text" class="form-control" value="<?php echo "$city"; ?>" placeholder="Enter your city">
 													</div>
 													
 												</div>
-												
-												<div class="clear"></div>
-												
 												
 												<div class="col-sm-6 col-md-4">
 												
 													<div class="form-group">
 														<label>Street</label>
-														<input name="street" required type="text" class="form-control" value="<?php echo "$mystreet"; ?>">
+														<input name="street" required type="text" class="form-control" value="<?php echo "$street"; ?>" placeholder="Enter your street">
 													</div>
 													
 												</div>
+												
+												<div class="clear"></div>
+												
 												<div class="col-sm-6 col-md-4">
 												
 													<div class="form-group">
 														<label>Zip Code</label>
-														<input name="zip" required type="text" class="form-control" value="<?php echo "$myzip"; ?>">
+														<input name="zip" required type="text" class="form-control" value="<?php echo "$zip"; ?>" placeholder="Enter your zip">
 													</div>
 													
 												</div>
-
-												<div class="clear"></div>
-												
-
 												
 												<div class="col-sm-6 col-md-4">
 												
@@ -413,7 +309,7 @@ header("location:../");
   
                                                            foreach($result as $row)
                                                            {
-		                                                    ?> <option <?php if ($mycountry == $row['country_name']) { print ' selected '; } ?> value="<?php echo $row['country_name']; ?>"><?php echo $row['country_name']; ?></option> <?php
+		                                                    ?> <option <?php if ($country == $row['country_name']) { print ' selected '; } ?> value="<?php echo $row['country_name']; ?>"><?php echo $row['country_name']; ?></option> <?php
 	 
 	                                                        }
 
@@ -428,16 +324,30 @@ header("location:../");
 													</div>
 													
 												</div>
+
+												<div class="clear"></div>
 												
 												<div class="col-sm-6 col-md-4">
 												
 													<div class="form-group">
 														<label>Phone Number</label>
-														<input type="text" name="phone" required class="form-control" value="<?php echo "$myphone"; ?>">
+														<input type="text" name="phone" required class="form-control" value="<?php echo "$myphone"; ?>" placeholder="Enter your phone">
 													</div>
 													
 												</div>
+												
+												<div class="col-sm-6 col-md-4">
+												
+													<div class="form-group">
+														<label>Email Address</label>
+														<input type="email" name="email" required class="form-control" value="<?php echo "$mymail"; ?>" placeholder="Enter your email">
+													</div>
+													
+												</div>
+												
 
+
+												<div class="clear"></div>
 												
 
 
@@ -446,8 +356,30 @@ header("location:../");
 												<div class="col-sm-12 col-md-12">
 												
 													<div class="form-group bootstrap3-wysihtml5-wrapper">
-														<label>About me</label>
-														<textarea name="about" class="bootstrap3-wysihtml5 form-control" placeholder="Enter your short description ..." style="height: 200px;"><?php echo "$mydesc"; ?></textarea>
+														<label>Company background</label>
+														<textarea name="background" class="bootstrap3-wysihtml5 form-control" placeholder="Enter company background ..." style="height: 200px;"><?php echo "$desc"; ?></textarea>
+													</div>
+													
+												</div>
+												
+												<div class="clear"></div>
+												
+												<div class="col-sm-12 col-md-12">
+												
+													<div class="form-group bootstrap3-wysihtml5-wrapper">
+														<label>Services</label>
+														<textarea name="services" class="bootstrap3-wysihtml5 form-control" placeholder="Enter company services ..." style="height: 200px;"><?php echo "$myserv"; ?></textarea>
+													</div>
+													
+												</div>
+												
+												<div class="clear"></div>
+												
+												<div class="col-sm-12 col-md-12">
+												
+													<div class="form-group bootstrap3-wysihtml5-wrapper">
+														<label>Expertise</label>
+														<textarea name="expertise" class="bootstrap3-wysihtml5 form-control" placeholder="Enter company expertise ..." style="height: 200px;"><?php echo "$myex"; ?></textarea>
 													</div>
 													
 												</div>
@@ -455,8 +387,8 @@ header("location:../");
 												<div class="clear"></div>
 
 												<div class="col-sm-12 mt-10">
-													<button type="submit" class="btn btn-primary">Update</button>
-													<button type="reset" class="btn btn-primary btn-inverse">Cancel</button>
+													<button type="submit" class="btn btn-primary">Save</button>
+													<button type="reset" class="btn btn-warning">Cancel</button>
 												</div>
 
 											</div>
@@ -468,7 +400,7 @@ header("location:../");
 										<div class="col-sm-12 col-md-12">
 												
 										<div class="form-group bootstrap3-wysihtml5-wrapper">
-										<label>Display Image</label>
+										<label>Company Logo</label>
 										<input accept="image/*" type="file" name="image"  required >
 										</div>
 													
@@ -479,10 +411,10 @@ header("location:../");
 										<div class="col-sm-12 mt-10">
 										<button type="submit" class="btn btn-primary">Update</button>
 										<?php 
-										if ($myavatar == null) {
+										if ($logo == null) {
 
 										}else{
-										?><a onclick = "return confirm('Are you sure you want to delete your avatar ?')" class="btn btn-primary btn-inverse" href="app/drop-dp.php">Delete</a> <?php
+										?><a onclick = "return confirm('Are you sure you want to delete your logo ?')" class="btn btn-primary btn-inverse" href="app/drop-dp.php">Delete</a> <?php
 										}
 										?>
 										</div>
@@ -549,7 +481,6 @@ header("location:../");
 								<p>Email : <a href="mailto:nightingale.nath2@gmail.com">nightingale.nath2@gmail.com</a></p>
 								<p>Phone : <a href="tel:+233546607474">+233 546 607 474</a></p>
 								
-
 							</div>
 
 							
@@ -567,6 +498,7 @@ header("location:../");
 						
 							<div class="col-sm-4 col-md-4">
 					
+								
 								<p class="copy-right">&#169; Copyright <?php echo date('Y'); ?> Nightingale Vision Software</p>
 								
 							</div>
