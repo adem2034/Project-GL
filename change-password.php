@@ -5,7 +5,7 @@ include '../constants/settings.php';
 include 'constants/check-login.php';
 
 if ($user_online == "true") {
-if ($myrole == "employee") {
+if ($myrole == "employer") {
 }else{
 header("location:../");		
 }
@@ -33,13 +33,12 @@ header("location:../");
     <meta property="og:description" content="Online Job Management / Job Portal" />
 
 	<link rel="shortcut icon" href="../images/ico/favicon.png">
-	
+
 	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css" media="screen">	
 	<link href="../css/animate.css" rel="stylesheet">
 	<link href="../css/main.css" rel="stylesheet">
 	<link href="../css/component.css" rel="stylesheet">
 	
-
 	<link rel="stylesheet" href="../icons/linearicons/style.css">
 	<link rel="stylesheet" href="../icons/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../icons/simple-line-icons/css/simple-line-icons.css">
@@ -51,27 +50,16 @@ header("location:../");
 	<link rel="stylesheet" href="../icons/flaticon-thick-icons/flaticon-thick.css">
 	<link rel="stylesheet" href="../icons/flaticon-ventures/flaticon-ventures.css">
 
-
 	<link href="../css/style.css" rel="stylesheet">
-
 	
 </head>
-  <style>
-  
-    .autofit2 {
-	height:80px;
-	width:100px;
-    object-fit:cover; 
-  }
-  
-  </style>
+
 
 <body class="not-transparent-header">
 
 	<div class="container-wrapper">
 
 		<header id="header">
-
 
 			<nav class="navbar navbar-default navbar-fixed-top navbar-sticky-function">
 
@@ -137,14 +125,14 @@ header("location:../");
 				<div class="container">
 				
 					<ol class="breadcrumb-list booking-step">
-						<li><a href="../">Nightingale Jobs</a></li>
+						<li><a href="../">Bwire Jobs</a></li>
 						<li><span>Change Password</span></li>
 					</ol>
 					
 				</div>
 				
 			</div>
-		
+
 			
 			<div class="admin-container-wrapper">
 
@@ -158,28 +146,26 @@ header("location:../");
 							
 								<div class="admin-sidebar">
 										
-									<div class="admin-user-item">
-									<div class="image">	
-									
+										
+									<div class="admin-user-item for-employer">
+										
+										<div class="image">
 										<?php 
-										if ($myavatar == null) {
-										print '<center><img class="img-circle autofit2" src="../images/default.jpg" title="'.$myfname.'" alt="image"  /></center>';
+										if ($logo == null) {
+										print '<center>Company Logo Here</center>';
 										}else{
-										echo '<center><img class="img-circle autofit2" alt="image" title="'.$myfname.'"  src="data:image/jpeg;base64,'.base64_encode($myavatar).'"/></center>';	
+										echo '<center><img alt="image" title="'.$compname.'" width="180" height="100" src="data:image/jpeg;base64,'.base64_encode($logo).'"/></center>';	
 										}
-										?>
+										?><br>
 										</div>
-										<br>
 										
-										
-										<h4><?php echo "$myfname"; ?> <?php echo "$mylname"; ?></h4>
-										<p class="user-role"><?php echo "$mytitle"; ?></p>
+										<h4><?php echo "$compname"; ?></h4>
 										
 									</div>
 									
 									<div class="admin-user-action text-center">
 									
-										<a target="_blank" href="my_cv" class="btn btn-primary btn-sm btn-inverse">View my CV</a>
+										<a href="post-job.php" class="btn btn-primary btn-sm btn-inverse">Post a Job</a>
 										
 									</div>
 									
@@ -190,29 +176,12 @@ header("location:../");
 										<li class="active">
 										<a href="change-password.php"><i class="fa fa-key"></i> Change Password</a>
 										</li>
+			
 										<li>
-											<a href="qualifications.php"><i class="fa fa-trophy"></i> Professional Qualifications</a>
+											<a href="../company.php?ref=<?php echo "$myid"; ?>"><i class="fa fa-briefcase"></i> Company Overview</a>
 										</li>
 										<li>
-											<a href="language.php"><i class="fa fa-language"></i> Language Proficiency</a>
-										</li>
-										<li>
-											<a href="training.php"><i class="fa fa-gears"></i> Training & Workshop</a>
-										</li>
-										<li>
-											<a href="referees.php"><i class="fa fa-users"></i> Referees</a>
-										</li>
-										<li>
-											<a href="academic.php"><i class="fa fa-graduation-cap"></i> Academic Qualifications</a>
-										</li>
-										<li>
-											<a href="experience.php"><i class="fa fa-briefcase"></i> Working Experience</a>
-										</li>
-										<li>
-											<a href="attachments.php"><i class="fa fa-folder-open"></i> Other Attachments</a>
-										</li>
-										<li>
-											<a href="applied-jobs.php"><i class="fa fa-bookmark"></i> Applied Jobs</a>
+											<a href="my-jobs.php"><i class="fa fa-bookmark"></i> Posted Jobs</a>
 										</li>
 										<li>
 											<a href="../logout.php"><i class="fa fa-sign-out"></i> Logout</a>
@@ -230,7 +199,6 @@ header("location:../");
 									<div class="admin-section-title">
 									
 										<h2>Change Password</h2>
-	
 										
 									</div>
 									
@@ -266,7 +234,8 @@ header("location:../");
 
 											</div>
 											
-										</form>
+										</form><br>
+										
 									
 								</div>
 
@@ -279,6 +248,7 @@ header("location:../");
 				</div>
 			
 			</div>
+
 			<footer class="footer-wrapper">
 			
 				<div class="main-footer">
@@ -345,6 +315,7 @@ header("location:../");
 						
 							<div class="col-sm-4 col-md-4">
 					
+								
 								<p class="copy-right">&#169; Copyright <?php echo date('Y'); ?> Nightingale Vision Software</p>
 								
 							</div>
@@ -374,10 +345,11 @@ header("location:../");
 			</footer>
 			
 		</div>
-	
 
-	</div> 
+	</div>
 
+ 
+ 
 <div id="back-to-top">
    <a href="#"><i class="ion-ios-arrow-up"></i></a>
 </div>
@@ -412,6 +384,7 @@ return true;
 }
 </script>
 
+
 <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="../js/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
@@ -439,10 +412,9 @@ return true;
 <script type="text/javascript" src="../js/jquery.responsivegrid.js"></script>
 <script type="text/javascript" src="../js/customs.js"></script>
 
-<script type="text/javascript" src="../js/fileinput.min.js"></script>
-<script type="text/javascript" src="../js/customs-fileinput.js"></script>
-
 
 </body>
+
+
 
 </html>
